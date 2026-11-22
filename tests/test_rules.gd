@@ -18,7 +18,7 @@ func _initialize() -> void:
 	game._advance(0.01)
 	check(game.bird_y < 0.47, "personagem sobe")
 	game.bird_y = 0.5
-	game.obstacle_x = 0.17
+	game.obstacle_x = 0.06
 	game.gap_y = 0.5
 	game.passed = false
 	game._advance(0.01)
