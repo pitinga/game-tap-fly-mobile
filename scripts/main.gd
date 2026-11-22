@@ -180,6 +180,8 @@ func _handle_contact(pos: Vector2, pressed: bool) -> void:
 		press_target = _hit(pos)
 		if page == "game" and BOARD.has_point(pos) and not paused:
 			rules.pointer(_game_point(pos))
+			if not rules.ended:
+				rules.tap(_game_point(pos))
 		return
 	if not touching:
 		return
@@ -211,7 +213,7 @@ func _handle_contact(pos: Vector2, pressed: bool) -> void:
 			elif Time.get_ticks_msec() - down_time > 480:
 				rules.hold(b)
 			else:
-				rules.tap(b)
+				pass # Tap Fly flaps on press, not release.
 	elif page == "catalog":
 		if pos.y > 1120:
 			page = "menu"
