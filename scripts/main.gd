@@ -178,7 +178,7 @@ func _handle_contact(pos: Vector2, pressed: bool) -> void:
 		down = pos
 		down_time = Time.get_ticks_msec()
 		press_target = _hit(pos)
-		if page == "game" and BOARD.has_point(pos) and not paused:
+		if page == "game" and press_target == "board" and not paused:
 			rules.pointer(_game_point(pos))
 			if not rules.ended:
 				rules.tap(_game_point(pos))
