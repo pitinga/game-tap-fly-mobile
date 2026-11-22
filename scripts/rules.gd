@@ -49,7 +49,7 @@ func _advance(dt: float) -> void:
 	bird_speed += 1.7 * dt
 	bird_y += bird_speed * dt
 	obstacle_x -= (0.32 + minf(0.17, score * 0.007)) * dt
-	if not passed and obstacle_x + 0.095 < 0.27:
+	if not passed and obstacle_x + 0.19 < 0.27:
 		passed = true
 		score += 1
 	if obstacle_x < -0.2:
@@ -59,7 +59,7 @@ func _advance(dt: float) -> void:
 	if bird_y < 0.028 or bird_y > 0.96:
 		ended = true
 		message = "Bateu no chão!"
-	if absf(0.27 - obstacle_x) < 0.12 and absf(bird_y - gap_y) > 0.16:
+	if 0.27 + 0.035 > obstacle_x and 0.27 - 0.035 < obstacle_x + 0.19 and absf(bird_y - gap_y) > 0.13:
 		ended = true
 		message = "Tente novamente!"
 
