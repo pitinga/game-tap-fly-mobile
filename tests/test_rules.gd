@@ -32,6 +32,36 @@ func _initialize() -> void:
 	game.hold(Vector2.ZERO)
 	check(not game.started, "soltar toque longo não começa jogo")
 	check(not game.ended and game.score == 0, "reinício limpo")
+	game.reset()
+	game.started = true
+	game.bird_y = 0.01
+	game._advance(0.0)
+	check(game.ended and game.message == "Bateu no teto!", "teto com mensagem correta")
+	for step in range(141):
+		var x := -0.18 + step * 0.005
+		game.reset()
+		game.started = true
+		game.bird_y = 0.74
+		game.gap_y = 0.48
+		game.obstacle_x = x
+		game._advance(0.0)
+		var overlaps: bool = game.BIRD_X + game.BIRD_RADIUS_X > x and game.BIRD_X - game.BIRD_RADIUS_X < x + game.TOWER_WIDTH
+		check(game.ended == overlaps, "colisão da torre na posição %.3f" % x)
+		game.reset()
+		game.started = true
+		game.bird_y = game.gap_y
+		game.obstacle_x = x
+		game._advance(0.0)
+		check(not game.ended, "abertura permite passar na posição %.3f" % x)
+	game.reset()
+	game.started = true
+	game.bird_y = game.gap_y
+	game.obstacle_x = 0.20
+	game._advance(0.0)
+	check(game.score == 0, "não pontua enquanto sobreposto")
+	game.obstacle_x = 0.04
+	game._advance(0.0)
+	check(game.score == 1, "pontua só após toda a torre passar")
 	finish()
 
 
